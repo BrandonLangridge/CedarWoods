@@ -1,0 +1,25 @@
+negative guests is possible
+so is number of nights
+
+
+
+Calculate total breakfasts required per day.
+
+
+can we remove faux editing in accommodation info
+
+
+
+
+
+all the below needs looking at
+
+Calculate total breakfasts required per day.
+
+Breakdown of breakfasts by area.
+
+View accommodations requiring cleaning.
+
+Display number of accommodations occupied, available, or under maintenance per area.
+
+Display total guests and breakfasts per area.
