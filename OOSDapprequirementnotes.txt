@@ -3,23 +3,24 @@ so is number of nights
 
 
 
-Calculate total breakfasts required per day.
+
+can we do a date selecting pop up
 
 
-can we remove faux editing in accommodation info
+when we go to a different area it doesn't clear the textfields we entered data in to (james definitely cares)
+
+
+maintenance is currently a type of  cleaning? (james doesn't care)
+
+
+if you try and click check in or out without selecting an accom can we make it tell you an error rather just a disabled button
+
+
+think about the font
+
+
+can we stop people checking in from the past
 
 
 
-
-
-all the below needs looking at
-
-Calculate total breakfasts required per day.
-
-Breakdown of breakfasts by area.
-
-View accommodations requiring cleaning.
-
-Display number of accommodations occupied, available, or under maintenance per area.
-
-Display total guests and breakfasts per area.
+maybe a button that cleans everything in the area
