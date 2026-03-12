@@ -50,26 +50,26 @@
     </columns>
 </TableView>
 
-        <Label layoutX="35.0" layoutY="373.0" styleClass="title" text="Room Maintenance">
+        <Label layoutX="33.0" layoutY="376.0" styleClass="title" text="Room Maintenance">
             <font>
                 <Font size="22.0" />
             </font>
         </Label>
-        <Label layoutX="32.0" layoutY="419.0" styleClass="subtitle" text="Cleaning Status">
+        <Label layoutX="32.0" layoutY="422.0" styleClass="subtitle" text="Cleaning Status">
             <font>
                 <Font size="14.0" />
             </font>
         </Label>
-        <ChoiceBox fx:id="cbCleaningStatus" layoutX="162.0" layoutY="416.0" prefHeight="26.0" prefWidth="181.0" styleClass="choice-box" />
+        <ChoiceBox fx:id="cbCleaningStatus" layoutX="162.0" layoutY="419.0" prefHeight="26.0" prefWidth="181.0" styleClass="choice-box" />
 
-        <Label layoutX="31.0" layoutY="455.0" styleClass="title" text="Accommodation Info">
+        <Label layoutX="31.0" layoutY="460.0" styleClass="title" text="Accommodation Info">
             <font>
                 <Font size="20.0" />
             </font>
         </Label>
         
-        <Label layoutX="31.0" layoutY="485.0" prefHeight="40.0" prefWidth="110.0" styleClass="subtitle" text="Accom Type" wrapText="true" />
-        <TextField fx:id="AccommType" layoutX="162.0" layoutY="491.0" prefHeight="26.0" prefWidth="214.0" styleClass="text-field" />
+        <Label layoutX="31.0" layoutY="488.0" prefHeight="40.0" prefWidth="110.0" styleClass="subtitle" text="Accom Type" wrapText="true" />
+        <TextField fx:id="AccommType" layoutX="162.0" layoutY="497.0" prefHeight="26.0" prefWidth="214.0" styleClass="text-field" />
         
         <Label layoutX="31.0" layoutY="525.0" prefHeight="40.0" prefWidth="110.0" styleClass="subtitle" text="Accom Num" wrapText="true" />
         <TextField fx:id="AccommNum" layoutX="162.0" layoutY="532.0" prefHeight="26.0" prefWidth="214.0" styleClass="text-field" />
@@ -84,7 +84,7 @@
 
         <Line endX="-25.0" endY="330.0" layoutX="425.0" layoutY="393.0" startX="-25.0" startY="-7.0" stroke="#000000bb" strokeWidth="0.25" />
 
-        <Label layoutX="468.0" layoutY="379.0" styleClass="title" text="Accommodation Reception">
+        <Label layoutX="468.0" layoutY="381.0" styleClass="title" text="Accommodation Reception">
             <font>
                 <Font size="22.0" />
             </font>
@@ -116,6 +116,6 @@
 
         <Button fx:id="btnCheckIn" layoutX="470.0" layoutY="710.0" onAction="#checkinClicked" prefHeight="35.0" prefWidth="140.0" styleClass="accent" text="Check In" />
         <Button fx:id="btnCheckOut" layoutX="660.0" layoutY="710.0" onAction="#checkoutClicekd" prefHeight="35.0" prefWidth="140.0" styleClass="danger" text="Check Out" />
-        <TextArea fx:id="Accomm_Description" editable="false" styleClass="description-area" layoutX="31.0" layoutY="643.0" prefHeight="116.0" prefWidth="351.0" wrapText="true" />
+        <TextArea fx:id="Accomm_Description" editable="false" layoutX="31.0" layoutY="643.0" prefHeight="116.0" prefWidth="351.0" styleClass="description-area" wrapText="true" />
     </children>
 </AnchorPane>

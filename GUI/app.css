@@ -489,3 +489,7 @@ CheckBox:selected .mark {
 CheckBox:hover .box {
     -fx-border-color: #7A9458;
 }
+
+.title {
+    -fx-text-fill: #688048; /* slightly darker green */
+}
