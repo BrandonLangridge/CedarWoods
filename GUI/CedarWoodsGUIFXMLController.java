@@ -16,6 +16,7 @@ import javafx.scene.control.CheckBox;
 import javafx.scene.control.ChoiceBox;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -35,68 +36,94 @@ import model.Guest;
 public class CedarWoodsGUIFXMLController implements Initializable {
 
     /* =========================
-       AREA SECTION
-       ========================= */
-
+        AREA SECTION
+        ========================= */
     private ObservableList<AccommodationRow> tableData = FXCollections.observableArrayList();
 
     // Changed from ChoiceBox<String> to ChoiceBox<Area> so that we get real
     // Area objects back from getValue(), allowing us to call area methods directly
-    @FXML private ChoiceBox<Area> cbArea;
-    @FXML private TextField txtAreaDescription;
-    @FXML private TextField txtNumBreakfasts;
-    @FXML private TextField txtNumRequireCleaning;
+    @FXML
+    private ChoiceBox<Area> cbArea;
+    @FXML
+
+    private TextArea Accomm_Description;
+    @FXML
+    private TextField txtNumBreakfasts;
+    @FXML
+    private TextField txtNumRequireCleaning;
+    @FXML
+    private TextArea txtAreaDescription;
 
     /* =========================
-       TABLE
-       ========================= */
+        TABLE
+        ========================= */
+    @FXML
+    private TableView<AccommodationRow> tblAccommodations;
 
-    @FXML private TableView<AccommodationRow> tblAccommodations;
+    // FXML-injected column references — wired to the fx:id attributes in the FXML file
+    @FXML private TableColumn<AccommodationRow, String> colAccomNum;
+    @FXML private TableColumn<AccommodationRow, String> colAccomType;
+    @FXML private TableColumn<AccommodationRow, String> colOccupancy;
+    @FXML private TableColumn<AccommodationRow, String> colAvailability;
+    @FXML private TableColumn<AccommodationRow, String> colCleaning;
+    @FXML private TableColumn<AccommodationRow, String> colGuests;
+    @FXML private TableColumn<AccommodationRow, String> colBreakfast;
 
     /* =========================
-       ACCOMMODATION INFO
-       ========================= */
-
-    @FXML private TextField AccommType;
-    @FXML private TextField AccommNum;
-    @FXML private TextField Accommodates;
-    @FXML private TextField PricePerNight;
+        ACCOMMODATION INFO
+        ========================= */
+    @FXML
+    private TextField AccommType;
+    @FXML
+    private TextField AccommNum;
+    @FXML
+    private TextField Accommodates;
+    @FXML
+    private TextField PricePerNight;
     // Changed from TextField to TextArea so long descriptions wrap onto
     // the next line rather than continuing on a single line
-    @FXML private TextArea Accomm_Description;
+
 
     /* =========================
-       CLEANING / MAINTENANCE
-       ========================= */
-
-    @FXML private ChoiceBox<String> cbCleaningStatus;
-
-    /* =========================
-       RECEPTION DETAILS
-       ========================= */
-
-    @FXML private TextField First_Name;
-    @FXML private TextField Last_Name;
-    @FXML private TextField Tel_Num;
-    @FXML private TextField CheckInDate;
-    @FXML private TextField NoOfGuests;
-    @FXML private TextField Num_Nights;
-
-    @FXML private CheckBox CheckBox_Breakfast;
+        CLEANING / MAINTENANCE
+        ========================= */
+    @FXML
+    private ChoiceBox<String> cbCleaningStatus;
 
     /* =========================
-       BUTTONS
-       ========================= */
+        RECEPTION DETAILS
+        ========================= */
+    @FXML
+    private TextField First_Name;
+    @FXML
+    private TextField Last_Name;
+    @FXML
+    private TextField Tel_Num;
+    @FXML
+    private TextField CheckInDate;
+    @FXML
+    private TextField NoOfGuests;
+    @FXML
+    private TextField Num_Nights;
 
-    @FXML private Button btnCheckIn;
-    @FXML private Button btnCheckOut;
+    @FXML
+    private CheckBox CheckBox_Breakfast;
 
     /* =========================
-       INITIALIZATION
-       ========================= */
+        BUTTONS
+        ========================= */
+    @FXML
+    private Button btnCheckIn;
+    @FXML
+    private Button btnCheckOut;
 
+    /* =========================
+        INITIALIZATION
+        ========================= */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        Accomm_Description.setWrapText(true);
 
         // //* Cleaning Status Choice Box Options *//
         // This remains as Strings since cleaning status is a fixed set of labels
@@ -106,48 +133,28 @@ public class CedarWoodsGUIFXMLController implements Initializable {
                 "Maintenance"
         );
 
-        // //* Table Columns — widths updated to match the final GUI layout *//
+        // //* Table Columns — wire up FXML columns directly, no duplicate creation *//
+        // The columns are already defined in the FXML with fx:id attributes.
+        // We only need to bind each column to the matching property in AccommodationRow.
+        colAccomNum.setCellValueFactory(new PropertyValueFactory<>("accommodationNumber"));
+        colAccomType.setCellValueFactory(new PropertyValueFactory<>("accommodationType"));
+        colOccupancy.setCellValueFactory(new PropertyValueFactory<>("accommodationOccupancy"));
+        colAvailability.setCellValueFactory(new PropertyValueFactory<>("accommodationAvailability"));
+        colCleaning.setCellValueFactory(new PropertyValueFactory<>("cleaningStatus"));
+        colGuests.setCellValueFactory(new PropertyValueFactory<>("numOfGuests"));
+        colBreakfast.setCellValueFactory(new PropertyValueFactory<>("breakfastRequired"));
 
-        // Accommodation Number Column
-        TableColumn accommNoCol = new TableColumn("Accommodation Number");
-        accommNoCol.setMinWidth(160);
-
-        // Accommodation Type Column
-        TableColumn typeCol = new TableColumn("Accommodation Type");
-        typeCol.setMinWidth(150);
-
-        // Accommodation Occupancy Column
-        TableColumn occupCol = new TableColumn("Occupancy");
-        occupCol.setMinWidth(120);
-
-        // Accommodation Availability Column
-        TableColumn availCol = new TableColumn("Availability");
-        availCol.setMinWidth(100);
-
-        // Cleaning Status Column
-        TableColumn statCol = new TableColumn("Cleaning Status");
-        statCol.setMinWidth(100);
-
-        // Number of Guests Column
-        TableColumn guestsCol = new TableColumn("Guests");
-        guestsCol.setMinWidth(50);
-
-        // Breakfast Column
-        TableColumn breakfastCol = new TableColumn("Breakfast");
-        breakfastCol.setMinWidth(82);
-
-        tblAccommodations.getColumns().addAll(accommNoCol, typeCol, occupCol, availCol, statCol, guestsCol, breakfastCol);
-
-        // Bind each column to the matching property name in AccommodationRow
-        accommNoCol.setCellValueFactory(new PropertyValueFactory<AccommodationRow, String>("accommodationNumber"));
-        typeCol.setCellValueFactory(new PropertyValueFactory<AccommodationRow, String>("accommodationType"));
-        occupCol.setCellValueFactory(new PropertyValueFactory<AccommodationRow, String>("accommodationOccupancy"));
-        availCol.setCellValueFactory(new PropertyValueFactory<AccommodationRow, String>("accommodationAvailability"));
-        statCol.setCellValueFactory(new PropertyValueFactory<AccommodationRow, String>("cleaningStatus"));
-        guestsCol.setCellValueFactory(new PropertyValueFactory<AccommodationRow, String>("numOfGuests"));
-        breakfastCol.setCellValueFactory(new PropertyValueFactory<AccommodationRow, String>("breakfastRequired"));
-
+        tblAccommodations.setColumnResizePolicy(TableView.CONSTRAINED_RESIZE_POLICY);
         tblAccommodations.setItems(tableData);
+
+        // Bind table height to the number of rows so it never shows phantom empty rows.
+        // 28px per row + 34px for the header.
+        tblAccommodations.setFixedCellSize(28);
+        tblAccommodations.prefHeightProperty().bind(
+            javafx.beans.binding.Bindings.size(tblAccommodations.getItems())
+                .multiply(28)
+                .add(42) // 34px header + 8px border/padding buffer to prevent scrollbar
+        );
 
         // //* Area Choice Box - Load real Area objects from CedarWoodsSystem *//
         // We use the Singleton getInstance() to get the one shared system instance,
@@ -179,11 +186,11 @@ public class CedarWoodsGUIFXMLController implements Initializable {
         // The listener fires whenever the selected item property changes.
         // newSelection is the newly clicked AccommodationRow, oldSelection is the previous one.
         tblAccommodations.getSelectionModel().selectedItemProperty().addListener(
-            (obs, oldSelection, newSelection) -> {
-                if (newSelection != null) {
-                    accommodationSelected(newSelection);
-                }
-            });
+                (obs, oldSelection, newSelection) -> {
+                    if (newSelection != null) {
+                        accommodationSelected(newSelection);
+                    }
+                });
 
         // Disable both buttons on startup since no accommodation is selected yet.
         // They will be enabled/disabled automatically when a row is selected.
@@ -192,15 +199,16 @@ public class CedarWoodsGUIFXMLController implements Initializable {
     }
 
     /* =========================
-       AREA CHOICE BOX EVENT HANDLER
-       ========================= */
-
+        AREA CHOICE BOX EVENT HANDLER
+        ========================= */
     // Fired whenever the user selects a different area from the ChoiceBox.
     // Retrieves the selected Area object and refreshes the description,
     // statistics, and table to match the chosen area.
     private void cbAreaOnAction(ActionEvent event) {
         Area area = cbArea.getValue();
-        if (area == null) return;
+        if (area == null) {
+            return;
+        }
 
         showAreaData(area);
 
@@ -210,9 +218,8 @@ public class CedarWoodsGUIFXMLController implements Initializable {
     }
 
     /* =========================
-       CLEANING STATUS CHOICE BOX EVENT HANDLER
-       ========================= */
-
+        CLEANING STATUS CHOICE BOX EVENT HANDLER
+        ========================= */
     // Fired whenever the cleaning staff changes the cleaning status ChoiceBox.
     // Updates the real accommodation object, refreshes the table and statistics.
     private void cbCleaningStatusOnAction(ActionEvent event) {
@@ -221,19 +228,30 @@ public class CedarWoodsGUIFXMLController implements Initializable {
         // If no row is selected, do nothing — the user may just be
         // browsing the choice box without having selected an accommodation.
         AccommodationRow selectedRow = tblAccommodations.getSelectionModel().getSelectedItem();
-        if (selectedRow == null) return;
+        if (selectedRow == null) {
+            return;
+        }
 
         // Step 2 — Get the selected cleaning status string from the choice box
         String selectedStatus = cbCleaningStatus.getValue();
-        if (selectedStatus == null) return;
+        if (selectedStatus == null) {
+            return;
+        }
 
         // Step 3 — Convert the string to the CleaningStatus enum value
         CleaningStatus newStatus;
         switch (selectedStatus) {
-            case "Clean":       newStatus = CleaningStatus.CLEAN;       break;
-            case "Dirty":       newStatus = CleaningStatus.DIRTY;       break;
-            case "Maintenance": newStatus = CleaningStatus.MAINTENANCE; break;
-            default: return;
+            case "Clean":
+                newStatus = CleaningStatus.CLEAN;
+                break;
+            case "Dirty":
+                newStatus = CleaningStatus.DIRTY;
+                break;
+            case "Maintenance":
+                newStatus = CleaningStatus.MAINTENANCE;
+                break;
+            default:
+                return;
         }
 
         // Step 4 — Update the actual accommodation object with the new status
@@ -267,9 +285,8 @@ public class CedarWoodsGUIFXMLController implements Initializable {
     }
 
     /* =========================
-       AREA DATA HELPER
-       ========================= */
-
+        AREA DATA HELPER
+        ========================= */
     // Populates the table and updates the area description and statistics
     // text fields based on the given Area object.
     private void showAreaData(Area area) {
@@ -327,9 +344,8 @@ public class CedarWoodsGUIFXMLController implements Initializable {
     }
 
     /* =========================
-       TABLE ROW SELECTION HANDLER
-       ========================= */
-
+        TABLE ROW SELECTION HANDLER
+        ========================= */
     // Fired when the user clicks a row in the accommodation table.
     // Always updates the Accommodation Info fields with the selected accommodation's details.
     // If the accommodation has an active booking, the reception fields are populated.
@@ -351,7 +367,7 @@ public class CedarWoodsGUIFXMLController implements Initializable {
         // Display the accommodation description in the Accomm_Description text area.
         // This is retrieved from the description stored in the Accomodation object,
         // which was set when the accommodation was created in CedarWoodsSystem.populate()
-        Accomm_Description.setText(accommodation.getDescription());
+        setAccommDescription(accommodation.getDescription());
 
         // Update the cleaning status choice box to reflect the selected accommodation
         cbCleaningStatus.setValue(accommodation.getCleaningStatus().toString());
@@ -377,26 +393,29 @@ public class CedarWoodsGUIFXMLController implements Initializable {
     }
 
     /* =========================
-       ACCOMMODATION CAPACITY HELPER
-       ========================= */
-
+        ACCOMMODATION CAPACITY HELPER
+        ========================= */
     // Returns the maximum number of guests for a given accommodation type,
     // as defined in Table 1 of the system specification brief.
     // Cabin=4, Geodesic Dome=2, Yurt=2, Airstream=4
     private int getCapacityForType(AccomodationType type) {
         switch (type) {
-            case CABIN:        return 4;
-            case GEODESICDOME: return 2;
-            case YURT:         return 2;
-            case AIRSTREAM:    return 4;
-            default:           return 0;
+            case CABIN:
+                return 4;
+            case GEODESICDOME:
+                return 2;
+            case YURT:
+                return 2;
+            case AIRSTREAM:
+                return 4;
+            default:
+                return 0;
         }
     }
 
     /* =========================
-       RECEPTION DISPLAY HELPERS
-       ========================= */
-
+        RECEPTION DISPLAY HELPERS
+        ========================= */
     // Populates all reception text fields with details from an existing booking.
     // Called when a row is selected and the accommodation has an active booking.
     private void displayCheckinDetails(Booking booking) {
@@ -429,9 +448,8 @@ public class CedarWoodsGUIFXMLController implements Initializable {
     }
 
     /* =========================
-       BUTTON ACTIONS
-       ========================= */
-
+        BUTTON ACTIONS
+        ========================= */
     @FXML
     private void checkinClicked(ActionEvent event) {
 
@@ -573,9 +591,8 @@ public class CedarWoodsGUIFXMLController implements Initializable {
     }
 
     /* =========================
-       ERROR ALERT HELPER
-       ========================= */
-
+        ERROR ALERT HELPER
+        ========================= */
     // Displays a JavaFX error alert dialog with a given title and message.
     // Platform.runLater() ensures the alert runs on the JavaFX Application Thread
     // which is required for all UI updates in JavaFX.
@@ -587,8 +604,30 @@ public class CedarWoodsGUIFXMLController implements Initializable {
                 alert.setTitle("Cedar Woods System");
                 alert.setHeaderText(title);
                 alert.setContentText(message);
+                // Replace the clashing red X with a brown-toned one to match the theme
+                javafx.scene.control.Label icon = new javafx.scene.control.Label("✖");
+                icon.setStyle(
+                    "-fx-text-fill: #8B5E20;" +
+                    "-fx-font-size: 28px;" +
+                    "-fx-font-weight: bold;"
+                );
+                alert.setGraphic(icon);
+                // Apply the same stylesheet so the dialog matches the app theme
+                alert.getDialogPane().getStylesheets().add(
+                    getClass().getResource("app.css").toExternalForm()
+                );
                 alert.showAndWait();
             }
         });
     }
+
+    /* =========================
+        ACCOMM DESCRIPTION HELPER
+        ========================= */
+    // Sets text on Accomm_Description via a dedicated method so that any
+    // future font or style fixes can be applied in one place.
+    private void setAccommDescription(String text) {
+        Accomm_Description.setText(text);
+    }
+
 }

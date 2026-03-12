@@ -1,25 +1,30 @@
 package gui;
 
 import java.io.IOException;
+import java.io.InputStream;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
 import javafx.scene.image.Image;
-import java.io.InputStream;
+import javafx.stage.Stage;
 
 public class CedarWoodsGUI extends Application {
 
     @Override
-    public void start(Stage primaryStage)
-            throws IOException {
+    public void start(Stage primaryStage) throws IOException {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("CedarWoodsGUIFXML.fxml"));
+        Scene scene = new Scene(loader.load());
+
+        // Load the primer-light theme CSS
+//        scene.getStylesheets().add(getClass().getResource("cupertino-light.css").toExternalForm());
+
+        // Load your custom overrides
+        scene.getStylesheets().add(getClass().getResource("app.css").toExternalForm());
 
         primaryStage.setTitle("Cedar Woods System");
-        Scene helloworldScene = new Scene(loader.load());
+        primaryStage.setScene(scene);
 
-        primaryStage.setScene(helloworldScene);
-
+        // Set the app icon
         InputStream iconStream = getClass().getResourceAsStream("/gui/app_icon.png");
         if (iconStream != null) {
             primaryStage.getIcons().add(new Image(iconStream));
