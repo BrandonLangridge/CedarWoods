@@ -520,7 +520,15 @@ public class CedarWoodsGUIFXMLController implements Initializable {
             showAlert("Check In Error", "Please enter the check in date in the format dd-MM-yy (e.g. 05-10-24).");
             return;
         }
-
+        // checking for the numnights and numguest that it wont be negative
+        if (numNights < 0) {
+    showAlert("Check In Error", "The number of nights must be at least 1.");
+    return;     
+}
+      
+      if (numGuests < 0) {
+    showAlert("Check In Error","The number of guests must be at least 1.");
+      }
         // Step 8 — All validation passed. Construct the Guest and Booking objects
         // using the data entered by the owner in the reception fields.
         Guest guest = new Guest(firstName, lastName, telNum);
